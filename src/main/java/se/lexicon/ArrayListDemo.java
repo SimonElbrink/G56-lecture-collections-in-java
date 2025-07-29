@@ -21,7 +21,7 @@ public class ArrayListDemo {
         // boolean - Boolean
 
 
-        ex4();
+        ex6();
     }
 
 
@@ -156,5 +156,72 @@ public class ArrayListDemo {
 //        Collections.sort(letters);
         Collections.sort(letters, String.CASE_INSENSITIVE_ORDER);
         System.out.println(letters);
+    }
+
+    public static void ex5(){
+
+
+        Person person1 = new Person(1, "Simon", "Simon@test.com");
+        Person person2 = new Person(1, "Simon", "Simon@test.com");
+
+        System.out.println(person1.toString());
+
+        //Memory address = Default ?
+        //Object Values = after overriding default?
+        boolean isEqualTwoPersons = person1.equals(person2);
+        System.out.println("isEqualTwoPersons = " + isEqualTwoPersons); //True / False
+
+        Person person3 = person1;
+        //InstanceOf = for comparing instances
+
+        String test1 = "TEST";
+        String test2 = "TEST";
+        System.out.println(test1.equals(test2));
+
+        int num1 = 100;
+        int num2 = 100;
+
+        boolean isEqualNumbers = num1 == num2;
+        System.out.println("isEqualNumbers = " + isEqualNumbers);
+    }
+
+    public static void ex6(){
+
+
+        ArrayList<Person> people = new ArrayList<>();
+        people.add(new Person(3, "John", "john@test.se"));
+        people.add(new Person(1, "Alice", "alice@test.se"));
+        people.add(new Person(2, "Alice", "alice@xyz.se"));
+        people.add(new Person(4, "Bob", "bob@test.se"));
+
+
+        System.out.println("-------------");
+
+        System.out.println("Original List:");
+        for (Person person: people){
+            System.out.println(person);
+        }
+
+        //Comparator
+        Collections.sort(people, new Comparator<Person>() {
+            @Override
+            public int compare(Person o1, Person o2) {
+                return Integer.compare(o1.getId(), o2.getId());
+            }
+        });
+
+        // if o1.getId < o2.getId -> returns a negative number = o1 should be before o2
+        // if o1.getId == o2.getId -> returns a zero = both are considered equal
+        // if o1.getId > o2.getId -> returns a positive number = o1 should be after o2
+
+        Collections.sort(people, (o1, o2) -> Integer.compare(o1.getId(), o2.getId()));
+
+        Collections.sort(people, Comparator.comparingInt(Person::getId));
+
+        System.out.println("Sorted List:");
+        for (Person person: people){
+            System.out.println(person);
+        }
+
     }
 }
